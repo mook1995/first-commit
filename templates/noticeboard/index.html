@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>게시글목록</title>
+    <style>
+        .cls1 {
+        color : gray;
+        text-decoration: none;
+        }
+        .cls2 {
+        text-align: center;
+        font-size: 30px;
+        display: block;
+        }
+
+        #menubar {
+	    background : red;
+        }
+        #menubar ul {
+	    margin : 0;
+	    padding : 0;
+	    width : 567px;
+        }
+        #menubar ul li {
+	    display : inline-block;
+	    list-style-type : none;
+	    padding : 0px 15px; /* top=bottom=0, left=right=15px */
+        }
+        #menubar ul li a {
+	    color : white;
+  	    text-decoration : none;
+        }
+        #menubar ul li a:hover {
+ 	    color : violet;
+        }
+
+        table tfoot{
+            color:red;
+            background : black;
+        }
+
+        #firstb tr{
+            background : blue;
+            color : white;
+        }
+
+
+
+
+    </style>
+</head>
+<body>
+
+    <nav id="menubar">
+	<ul>
+		<li><a href="#">메뉴</a></li>
+		<li><a href="#">연혁</a></li>
+		<li><a href="#">직원</a></li>
+		<li><a href="#">공지사항</a></li>
+		<li><a href="#">게시판</a></li>
+	</ul>
+    </nav>
+
+
+
+
+
+
+
+
+
+
+
+    <table frame ="void" cellspacing="0" align="center" border="1" width="80%">
+        <thead>
+            <tr height="10" align="center" bgcolor="white">
+                <th>글번호</th>
+                <th>작성자</th>
+                <th>제목</th>
+                <th>작성일</th>
+            </tr>
+        </thead>
+        <tfoot>
+            <tr height="10" align="center" >
+                <th colspan="4" >빨갱이를 죽이자!</th>
+            </tr>
+        </tfoot>
+
+        {% if article_list %}
+        <tbody id="firstb">
+            {% for article in article_list%}
+            <tr align="center">
+                <td width="5%">{{forloop.counter}} <!--중괄호를 두번씩 쓰면 변수로 알아듣는다.--></td>
+                <td width="10%">{{article.writeID}}</td>
+                <td align="left" width="35%">
+                    <span style="padding-right:30px"></span>
+                    <a class="cls1" href="{% url 'noticeboard:view' article.id %}">{{article.title}}</a>
+                </td>
+                <td width="10%">{{article.writeDate}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+        {% else %}
+        <tbody>
+            <tr height="10">
+                <td colspan="4">
+                    <p align="center">
+                        <b><span style="font-size:15pt;">등록된 글이 없습니다.</span></b>
+                    </p>
+                </td>
+            </tr>
+        </tbody>
+
+
+        {% endif %}
+
+
+
+
+
+    </table>
+    <a class="cls1" href="{% url 'noticeboard:write_article' %}">
+        <span class="cls2">글싸지르기</span>
+    </a>
+
+</body>
+</html>
